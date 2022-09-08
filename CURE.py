@@ -471,28 +471,12 @@ class cure:
             if maximal_point not in temporary:
                 temporary.append(maximal_point)
                 
-        sub_cluster_dict = {rp: [] for rp in range(len(temporary))} # loop running from 0 to (__number_represent_points-1)
-        sub_cluster_means = {rp_mean: [] for rp_mean in range(len(temporary))} # loop running from 0 to (__number_represent_points-1)
-        # Initialized a dictionary with the following structure:
-        # {0: [[],[],[],...], 1: [], 2: [],....}
-        for p in merged_cluster.points: #Running the loop for all the points of a cluster        
-            distance_list = [euclidean_distance_square(p, rp) for rp in temporary] # this list contains distances of point p to all the representative points...
-            sub_cluster_dict[min(range(len(distance_list)), key=distance_list.__getitem__)].append(p) # from the above list, find the index of minimum distance and append the point p to the key corresponding to that index in dictionary.
-        
-        for point in list(sub_cluster_dict.keys()): #point --> 0,1,2...
-            #representative_point = [0] * dimension # comment this line
-            # step-1: find mean of sub cluster from sub_cluster_dic
-            # step-2: assign the mean to representative_point
-            #for p in merged_cluster.points:
-            #   dist = euclidean_distance_square(point, p)
+        for point in temporary:
+            representative_point = [0] * dimension
+            for index in range(dimension):
+                representative_point[index] = point[index] + self.__compression * (merged_cluster.mean[index] - point[index])
             
-            for dim in range(dimension):
-                val = sum(row[dim] for row in sub_cluster_dict[point])/len(sub_cluster_dict[point]) # column-wise addition of points of subcluster
-                sub_cluster_means[point].append(val)
-            #for index in range(dimension): # SHRINKING SCHEME.....
-            #   representative_point[index] = point[index] + self.__compression * (merged_cluster.mean[index] - point[index])    
-            
-            merged_cluster.rep.append(sub_cluster_means[point])
+            merged_cluster.rep.append(representative_point)
         
         return merged_cluster
 
