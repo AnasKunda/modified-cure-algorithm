@@ -37,6 +37,9 @@ from pyclustering.core.wrapper import ccore_library
 
 import pyclustering.core.cure_wrapper as wrapper
 
+from modified_dtw import compute_dtw
+
+
 class cure_cluster:
     """!
     @brief Represents data cluster in CURE term. 
@@ -152,6 +155,8 @@ class cure:
             
         else:
             self.__process_by_python()
+
+        
 
 
     def __process_by_ccore(self):
@@ -449,10 +454,14 @@ class cure:
             for point in merged_cluster.points:
                 minimal_distance = 0
                 if index == 0:
-                    minimal_distance = euclidean_distance_square(point, merged_cluster.mean)
+                    # REAL 1
+                    # minimal_distance = euclidean_distance_square(point, merged_cluster.mean)
+                    minimal_distance = compute_dtw(point, merged_cluster.mean)
                     #minimal_distance = euclidean_distance_sqrt(point, merged_cluster.mean);
                 else:
-                    minimal_distance = min([euclidean_distance_square(point, p) for p in temporary])
+                    # REAL 1
+                    # minimal_distance = min([euclidean_distance_square(point, p) for p in temporary])
+                    minimal_distance = min([compute_dtw(point, p) for p in temporary])
                     #minimal_distance = cluster_distance(cure_cluster(point), cure_cluster(temporary[0]));
                     
                 if minimal_distance >= maximal_distance:
@@ -547,8 +556,9 @@ class cure:
         distance = float('inf')
         for i in range(0, len(cluster1.rep)):
             for k in range(0, len(cluster2.rep)):
-                dist = euclidean_distance_square(cluster1.rep[i], cluster2.rep[k]);   # Fast mode
-                #dist = euclidean_distance(cluster1.rep[i], cluster2.rep[k])        # Slow mode
+                # REAL 1
+                # dist = euclidean_distance_square(cluster1.rep[i], cluster2.rep[k])   # Fast mode
+                dist = compute_dtw(cluster1.rep[i], cluster2.rep[k])
                 if dist < distance:
                     distance = dist
                     
