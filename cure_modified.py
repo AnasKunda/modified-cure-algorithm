@@ -591,30 +591,30 @@ class cure:
     #     return d
 
 
-sample = pyclustering.utils.read_sample(r'processed_dataset.txt')
-print(sample)
-print(len(sample))
-cure_instance = cure(sample, 8, 5, 0.5, False)
-cure_instance.process()
-clusters = cure_instance.get_clusters()
+# sample = pyclustering.utils.read_sample(r'processed_dataset.txt')
+# print(sample)
+# print(len(sample))
+# cure_instance = cure(sample, 8, 5, 0.5, False)
+# cure_instance.process()
+# clusters = cure_instance.get_clusters()
 
-print(len(clusters))
-print(clusters)
-# clusters = numpy.array(clusters)
+# print(len(clusters))
+# print(clusters)
+# # clusters = numpy.array(clusters)
 
-# Visualize the clusters
-# visualizer = cluster_visualizer();
-# visualizer.append_clusters(clusters, sample);
-# for v in range(len(clusters)):
-#     visualizer.append_cluster_attribute(index_canvas=0,index_cluster=v,data=cure_instance.get_representors()[v], marker='*', markersize=10)
-# visualizer.show();
+# # Visualize the clusters
+# # visualizer = cluster_visualizer();
+# # visualizer.append_clusters(clusters, sample);
+# # for v in range(len(clusters)):
+# #     visualizer.append_cluster_attribute(index_canvas=0,index_cluster=v,data=cure_instance.get_representors()[v], marker='*', markersize=10)
+# # visualizer.show();
 
-# lst = []
-# for i in range(0, len(clusters)):
-#     for j in range(0, len(clusters[i])):
-#         lst.append(clusters[i][j])
+# # lst = []
+# # for i in range(0, len(clusters)):
+# #     for j in range(0, len(clusters[i])):
+# #         lst.append(clusters[i][j])
 
-numpy.savetxt("Index_List.csv",
-           clusters,
-           delimiter =", ",
-           fmt ='% s')
+# numpy.savetxt("Index_List.csv",
+#            clusters,
+#            delimiter =", ",
+#            fmt ='% s')
