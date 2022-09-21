@@ -36,14 +36,12 @@ def create_speed_list(df, areaname):
     speed_list = []
     for i in range(0, len(index)):
         for speed in range(k, index[i]):
-            lst.append(df['speed'][speed])
+            lst.append(float(df['speed'][speed]))
         k = index[i]
         speed_list.append(lst)
         lst = []
         
-    for i in speed_list:
-        if len(i) <= 5:
-            speed_list.remove(i)
+    speed_list = [i for i in speed_list if len(i)>=5]
     # data = pd.DataFrame(df.groupby(pd.Grouper(key='datetime', freq='60min')).count()['speed'])
     # data.columns = ['number of cars']
     # data['speed_list'] = speed_list

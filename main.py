@@ -1,6 +1,7 @@
 from process_raw_data import *
 
 from cure_modified import cure
+from pyclustering.utils import read_sample
 
 def main():
     """
@@ -14,6 +15,7 @@ def main():
     
     processed_df = create_dataframe(path, widths, columns)
     sample = create_speed_list(processed_df, areaname)
+    sample_tmp = read_sample(r"C:\Users\HP\Desktop\Anas\Research Paper\CURE\Codes\data_file_25r.txt")
     
     # run cure...
     n_clusters = 2
@@ -21,7 +23,7 @@ def main():
     alpha = 0.1
     use_ccore = False
     
-    cure_instance = cure(sample, n_clusters, n_rep, alpha, use_ccore)
+    cure_instance = cure(sample_tmp, n_clusters, n_rep, alpha, use_ccore)
     cure_instance.process()
     clusters = cure_instance.get_clusters()
     print("ALGORITHM SUCCESSFULLY COMPLETED.....")
